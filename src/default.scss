@@ -1,0 +1,49 @@
+html,
+body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  background-color: #fff;
+  color:#000;
+}
+
+html {
+  font-size: 10px;
+}
+
+html,
+body,
+#root,
+.app {
+  height: 100%;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 1.8rem;
+  font-family: "Open Sans", sans-serif;
+  line-height: 1;
+  font-weight: 400;
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color:#000;
+}
+
+a a:hover {
+  transition: all 0.4s ease-in-out;
+}
+
+.main {
+  // max-width: 1450px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 10px;
+  height: calc(100% - 6.5rem)
+}

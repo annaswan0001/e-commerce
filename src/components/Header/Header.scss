@@ -1,26 +1,36 @@
-.header{
-    height: 6.5rem;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
-}
-
-.wrapper{
-    position: relative;
+.header {
+  display: block;
+  height: 6.5rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  .wrapper {
     height: 100%;
-    max-width: 1180px;
     // max-width: 1450px;
+    max-width: 1180px;
     margin: 0 auto;
-    .logo{
-        position: absolute;
-        top:50%;
-        left: 10px;
-        transform: translateY(-50%);
+    display: flex;
+
+    .logo {
+      height: 100%;
+      flex-basis: 50%;
+      align-self: center;
+      padding-left: 10px;
+      img {
+        display: block;
         height: 100%;
-        img {
-            height: 100%;
-            display: block;
-        }
-       
-
-
+        margin: 0;
+      }
     }
+    .callToActions {
+      flex-basis: 50%;
+      text-align: end;
+      padding-right: 10px;
+
+        li a{
+            font-size: 1.8rem;
+            list-style-type: none;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+    }
+  }
 }

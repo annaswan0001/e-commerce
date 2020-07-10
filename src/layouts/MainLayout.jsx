@@ -5,7 +5,8 @@ import Header from "../components/Header/Header";
 function MainLayout(props) {
   return (
     <>
-      <Header />
+      <Header {...props}/>
+      {console.log(props)}
       <div className="main">
         {props.children}
     

@@ -6,7 +6,8 @@ import Footer from '../components/Footer/Footer'
 function MainLayout(props) {
   return (
     <>
-      <Header />
+      <Header {...props}/>
+      {console.log(props)}
       {props.children}
       <Footer/>
     </>

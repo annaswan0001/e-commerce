@@ -4,7 +4,11 @@ footer{
         height: 100%;
         max-width: 1180px;
         margin: 0 auto;
-        display: flex;
+        // display: flex;
+        text-align: right;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding-top: 20px;
     }
     
 }

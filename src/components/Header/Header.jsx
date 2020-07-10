@@ -3,8 +3,9 @@ import logo from "../../assets/logo.png";
 import PropTypes from "prop-types";
 import "./Header.scss";
 import { Link } from "react-router-dom";
+import { auth } from "../../firebase/utils";
 
-function Header(props) {
+function Header({ currentUser = null, ...rest }) {
   return (
     <header className="header">
       <div className="wrapper">
@@ -15,11 +16,27 @@ function Header(props) {
         </div>
 
         <div className="callToActions">
-          <ul>
-            <li>
-              <Link to="/registration">register</Link>
-            </li>
-          </ul>
+          {currentUser && (
+            <ul>
+              <li>
+                <span onClick={()=>auth.signOut()}>
+                Logout
+                </span>
+            
+              </li>
+            </ul>
+          )}
+
+          {!currentUser && (
+            <ul>
+              <li>
+                <Link to="/registration">register</Link>
+              </li>
+              <li>
+                <Link to="/login">login</Link>
+              </li>
+            </ul>
+          )}
         </div>
       </div>
     </header>

@@ -1,11 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import SignUp from '../../components/SignUp/SignUp'
 
 function Registration(props) {
     return (
-        <div>
-            Registrattiom
-        </div>
+        <SignUp/>
     )
 }
 

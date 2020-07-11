@@ -1,5 +1,5 @@
 html,
-body {
+body, ul {
   margin: 0px;
   padding: 0px;
   background-color: #fff;
@@ -59,4 +59,8 @@ a a:hover {
 }
 ul{
     list-style-type:none;
+}
+.error{
+  color: red;
+  
 }

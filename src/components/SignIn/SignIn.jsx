@@ -1,15 +1,20 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
+import {Link} from 'react-router-dom'
 import { signInWithGoogle , auth} from "../../firebase/utils";
 import "./SignIn.scss";
 import Button from "../../components/Forms/Button/Button";
 import Input from "../../components/Forms/Input/Input";
+import AuthWrapper from "../AuthWrapper/AuthWrapper";
 
 const initialState = {
   email: "",
   password: "",
 };
 
+const configAuthWrapper = {
+  headline:"Log in"
+}
 class SignIn extends React.Component {
   state = {
     ...initialState,
@@ -36,9 +41,7 @@ class SignIn extends React.Component {
     const { email, password } = this.state;
 
     return (
-      <div className="signin">
-        <div className="wrapper">
-          <h2>Login</h2>
+     <AuthWrapper {...configAuthWrapper}>
           <div className="formWrapper">
             <form onSubmit={this.handleSubmit}>
               <div className="row">
@@ -64,8 +67,14 @@ class SignIn extends React.Component {
               <Button onClick={signInWithGoogle}>Sign in with Google</Button>
             
           </div>
-        </div>
-      </div>
+
+          <div className="links">
+              <Link to="/recovery">
+                Reset Password
+              </Link>
+            </div>
+ </AuthWrapper>
+      
     );
   }
 }

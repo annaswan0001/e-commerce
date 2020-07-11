@@ -6,6 +6,7 @@ import Registration from "./views/Registration/Registration";
 import MainLayout from "./layouts/MainLayout";
 import HomeLayout from "./layouts/HomeLayout";
 import Login from "./views/Login/Login";
+import Recovery from './views/Recovery/Recovery'
 import { auth, handleUserProfile} from "./firebase/utils";
 
 const initialState = {
@@ -88,6 +89,16 @@ class App extends React.Component {
                   <Login />
                 </MainLayout>
               )
+            }
+          />
+                <Route
+            path="/recovery"
+            render={() =>
+              
+                <MainLayout currentUser={currentUser}>
+                  <Recovery />
+                </MainLayout>
+            
             }
           />
         </Switch>

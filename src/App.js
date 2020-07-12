@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./default.scss";
+import {connect} from 'react-redux'
 import Homepage from "./views/Homepage/Homepage";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Registration from "./views/Registration/Registration";
@@ -8,35 +9,24 @@ import HomeLayout from "./layouts/HomeLayout";
 import Login from "./views/Login/Login";
 import Recovery from './views/Recovery/Recovery'
 import { auth, handleUserProfile} from "./firebase/utils";
+import {setCurrentUser}from './redux/User/userActions'
+
 
 const initialState = {
   currentUser: null,
 };
 
 class App extends React.Component {
-  state = {
-    ...initialState,
-  };
-
+ 
   authListerner = null;
-  // componentDidMount() {
-  //   this.authListerner = auth.onAuthStateChanged((userAuth) => {
-  //     console.log(userAuth);
-  //     if (!userAuth) {
-  //       this.setState({ ...initialState });
-  //     }else{
-  //       this.setState({ currentUser: userAuth });
-  //     }
-      
-  //   });
-  // }
+
 
   componentDidMount() {
     this.authListener = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot(snapshot => {
-          this.setState({
+          this.props.setCurrentUser({
             currentUser: {
               id: snapshot.id,
               ...snapshot.data()
@@ -45,9 +35,7 @@ class App extends React.Component {
         })
       }
 
-      this.setState({
-        ...initialState
-      });
+      this.props.setCurrentUser(userAuth);
     });
   }
   
@@ -55,7 +43,7 @@ class App extends React.Component {
     this.authListerner();
   }
   render() {
-    const { currentUser } = this.state;
+    const { currentUser } = this.props;
     return (
       <div className="app">
         <Switch>
@@ -63,7 +51,7 @@ class App extends React.Component {
             exact
             path="/"
             render={() => (
-              <HomeLayout currentUser={currentUser}>
+              <HomeLayout >
                 <Homepage />
               </HomeLayout>
             )}
@@ -74,7 +62,7 @@ class App extends React.Component {
               currentUser ? (
                 <Redirect to="/" />
               ) : (
-              <MainLayout currentUser={currentUser}>
+              <MainLayout >
                 <Registration />
               </MainLayout>
             ))}
@@ -85,7 +73,7 @@ class App extends React.Component {
               currentUser ? (
                 <Redirect to="/" />
               ) : (
-                <MainLayout currentUser={currentUser}>
+                <MainLayout >
                   <Login />
                 </MainLayout>
               )
@@ -106,5 +94,7 @@ class App extends React.Component {
     );
   }
 }
-
-export default App;
+const mapStateToProps = (state) =>({
+  currentUser:state.user.currentUser
+})
+export default connect(mapStateToProps, {setCurrentUser})(App);

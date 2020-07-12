@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import "./Header.scss";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/utils";
+import { connect } from "react-redux";
+
 
 function Header({ currentUser = null, ...rest }) {
   return (
@@ -47,4 +49,8 @@ function Header({ currentUser = null, ...rest }) {
 
 // }
 
-export default Header;
+const mapStatetoProps = (state) =>({
+  currentUser: state.user.currentUser
+})
+
+export default connect(mapStatetoProps, null)(Header);

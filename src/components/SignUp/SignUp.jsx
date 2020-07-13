@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import Input from "../../components/Forms/Input/Input";
 import "./SignUp.scss";
 import Button from "../Forms/Button/Button";
 import {auth, handleUserProfile} from '../../firebase/utils'
 import AuthWrapper from "../AuthWrapper/AuthWrapper";
+import {withRouter} from 'react-router-dom'
 
 const initialState = {
   displayName: "",
@@ -17,46 +18,40 @@ const configAuthWrapper = {
   headline:"Sign up"
 }
 
-class SignUp extends React.Component {
-  state = {
-    ...initialState,
-  };
+const SignUp=(props)=>{
+  const [displayName,setDisplayName ] = useState("");
+  const [email,setEmail ] = useState("")
+  const [password,setPassword ] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [errors, setErrors ] = useState([])
 
-  handleSubmit =   async e =>{
+
+  const resetForm = () =>{
+    setDisplayName("")
+    setEmail("")
+    setPassword("")
+    setConfirmPassword("")
+  }
+  const handleSubmit =  async e =>{
+    setErrors("")
     e.preventDefault()
-    let {displayName, email, password, confirmPassword ,errors } = this.state
+
     if(password != confirmPassword){
-      errors = [...errors, "Password doesnt match"]
+      setErrors(["Password doesnt match"])
+      return
     }
-    this.setState({errors})
 
     try {
       const user = await auth.createUserWithEmailAndPassword(email,password)
       await handleUserProfile(user, displayName)
-      this.setState({...initialState})
+      resetForm();
+      props.history.push("/")
 
     } catch (error) {
-      
+      console.log(error);
     }
   }
 
-
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    console.log(value);
-    this.setState({
-      [name]: value,
-    });
-  };
-  render() {
-    const { props } = this.props;
-    const {
-      displayName,
-      email,
-      password,
-      confirmPassword,
-      errors,
-    } = this.state;
     return (
      <AuthWrapper {...configAuthWrapper}>
           <div className="form-wrapper">
@@ -67,43 +62,42 @@ class SignUp extends React.Component {
                 ))}
               </ul>
             )}
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <Input
                 placeholder="Full name"
                 type="text"
                 name="displayName"
                 value={displayName}
-                handleChange={this.handleChange}
+                handleChange={(e)=>setDisplayName(e.target.value)}
               />
               <Input
                 placeholder="Email"
                 type="email"
                 name="email"
                 value={email}
-                handleChange={this.handleChange}
+                handleChange={(e)=>setEmail(e.target.value)}
               />
               <Input
                 placeholder="Password"
                 type="password"
                 name="password"
                 value={password}
-                handleChange={this.handleChange}
+                handleChange={(e)=>setPassword(e.target.value)}
               />
               <Input
                 placeholder="Confirm password"
                 type="password"
                 name="confirmPassword"
                 value={confirmPassword}
-                handleChange={this.handleChange}
+                handleChange={(e)=>setConfirmPassword(e.target.value)}
               />
               <Button>register</Button>
             </form>
           </div>
           </AuthWrapper>
     );
-  }
 }
 
 SignUp.propTypes = {};
 
-export default SignUp;
+export default withRouter(SignUp);

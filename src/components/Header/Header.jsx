@@ -24,13 +24,18 @@ function Header({ currentUser = null, ...rest }) {
                 <span onClick={()=>auth.signOut()}>
                 Logout
                 </span>
+                
             
+              </li>
+              <li>
+                <Link to="/dashboard">My account</Link>
               </li>
             </ul>
           )}
 
           {!currentUser && (
             <ul>
+             
               <li>
                 <Link to="/registration">register</Link>
               </li>

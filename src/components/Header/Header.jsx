@@ -4,10 +4,20 @@ import PropTypes from "prop-types";
 import "./Header.scss";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/utils";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { signOutStart } from "../../redux/User/userActions";
+
+const mapState = (state) =>({
+  currentUser: state.user.currentUser
+})
 
 
-function Header({ currentUser = null, ...rest }) {
+function Header({  ...rest }) {
+  const {currentUser} = useSelector(mapState)
+  const dispatch = useDispatch()
+  
+  const signOut = ()=>dispatch(signOutStart())
+  
   return (
     <header className="header">
       <div className="wrapper">
@@ -21,7 +31,7 @@ function Header({ currentUser = null, ...rest }) {
           {currentUser && (
             <ul>
               <li>
-                <span onClick={()=>auth.signOut()}>
+                <span onClick={signOut}>
                 Logout
                 </span>
                 
@@ -54,8 +64,5 @@ function Header({ currentUser = null, ...rest }) {
 
 // }
 
-const mapStatetoProps = (state) =>({
-  currentUser: state.user.currentUser
-})
 
-export default connect(mapStatetoProps, null)(Header);
+export default Header;

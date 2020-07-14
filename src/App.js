@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./default.scss";
 import { connect } from "react-redux";
 import Homepage from "./views/Homepage/Homepage";
@@ -9,35 +9,23 @@ import HomeLayout from "./layouts/HomeLayout";
 import Login from "./views/Login/Login";
 import Recovery from "./views/Recovery/Recovery";
 import { auth, handleUserProfile } from "./firebase/utils";
-import { setCurrentUser } from "./redux/User/userActions";
+import { checkUserSessionStart } from "./redux/User/userActions";
 import Dashboard from "./views/Dashboard/Dashboard";
 import WithAuth from "./components/hoc/WithAuth";
+import { useDispatch } from "react-redux";
 
 const App = (props) => {
-  const {currentUser, setCurrentUser} = props
+  const [app,setApp] = useState(false)
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const authListener = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await handleUserProfile(userAuth);
-        userRef.onSnapshot((snapshot) => {
-          props.setCurrentUser({
-            currentUser: {
-              id: snapshot.id,
-              ...snapshot.data(),
-            },
-          });
-        });
-      }
-      props.setCurrentUser(userAuth);
-    });
-    return () => {
-      authListener();
-    };
+    dispatch(checkUserSessionStart());
+    setTimeout(()=>setApp(true), 1000)
   }, []);
 
   return (
-    <div className="app">
+    <React.Fragment>
+   {app && (    <div className="app">
       <Switch>
         <Route
           exact
@@ -50,48 +38,43 @@ const App = (props) => {
         />
         <Route
           path="/registration"
-          render={() =>
-            (
-               
-              <MainLayout>
-                <Registration />
-              </MainLayout>
-            )
-          }
+          render={() => (
+            <MainLayout>
+              <Registration />
+            </MainLayout>
+          )}
         />
         <Route
           path="/login"
-          render={() =>
-            (
-              <MainLayout>
-                <Login />
-              </MainLayout>
-            )
-          }
+          render={() => (
+            <MainLayout>
+              <Login />
+            </MainLayout>
+          )}
         />
         <Route
           path="/recovery"
           render={() => (
-            <MainLayout currentUser={currentUser}>
+            <MainLayout>
               <Recovery />
             </MainLayout>
           )}
         />
-      <Route
+        <Route
           path="/dashboard"
           render={() => (
-           < WithAuth>
-            <MainLayout currentUser={currentUser}>
-              <Dashboard />
-            </MainLayout>
+            <WithAuth>
+              <MainLayout>
+                <Dashboard />
+              </MainLayout>
             </WithAuth>
           )}
         />
       </Switch>
-    </div>
+    </div>)}
+
+    </React.Fragment>
   );
 };
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
-});
-export default connect(mapStateToProps, { setCurrentUser })(App);
+
+export default App;

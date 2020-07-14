@@ -1,37 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes, { resetWarningCache } from "prop-types";
-import { Link , withRouter} from "react-router-dom";
-import { signInWithGoogle, auth } from "../../firebase/utils";
+import { Link, withRouter } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "./SignIn.scss";
 import Button from "../../components/Forms/Button/Button";
 import Input from "../../components/Forms/Input/Input";
 import AuthWrapper from "../AuthWrapper/AuthWrapper";
+import { signInStart, googleSignInStart } from "../../redux/User/userActions";
 
+const mapState = ({ user }) => ({
+  currentUser: user.currentUser,
+});
 const configAuthWrapper = {
   headline: "Log in",
 };
 
 const SignIn = (props) => {
-  const [email,setEmail] = useState("")
-  const [password,setPassword] = useState("")
-  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector(mapState);
+
   const resetForm = () => {
-    setEmail("")
-    setPassword("")
-
+    setEmail("");
+    setPassword("");
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
+  useEffect(() => {
+    if (currentUser) {
       resetForm();
-      props.history.push("/")
-    } catch (error) {
-      console.log(error.message);
+      props.history.push("/");
     }
-  };
+  }, [currentUser]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(signInStart({ email, password }));
+  };
+  const signInWithGoogle = () => {
+    dispatch(googleSignInStart());
+  };
   return (
     <AuthWrapper {...configAuthWrapper}>
       <div className="formWrapper">
@@ -40,7 +48,7 @@ const SignIn = (props) => {
             <Input
               value={email}
               type="text"
-              handleChange={(e)=>setEmail(e.target.value)}
+              handleChange={(e) => setEmail(e.target.value)}
               name="email"
               placeholder="Email"
             />
@@ -48,7 +56,7 @@ const SignIn = (props) => {
               value={password}
               type="password"
               name="password"
-              handleChange={(e)=>setPassword(e.target.value)}
+              handleChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
             />
             <Button type="submit">Log in</Button>

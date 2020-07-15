@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './EmailPassword.scss';
 
 import AuthWrapper from '../AuthWrapper/AuthWrapper';
@@ -20,7 +20,7 @@ const configAuthWrapper = {
   })
 
 const EmailPassword = (props) => {
-  
+const history = useHistory()
 const [email,setEmail] = useState("")
 const [errors, setErrors] = useState([])
 const dispatch = useDispatch()
@@ -28,7 +28,7 @@ const {isReset, resetError} =useSelector(mapState)
 
 useEffect(() => {
   if(isReset){
-    props.history.push('/login')
+    history.push('/login')
     dispatch(resetUserState())
   }
   
@@ -86,4 +86,4 @@ const handleSubmit = (e) => {
     );
 }
 
-export default withRouter(EmailPassword); 
+export default EmailPassword; 

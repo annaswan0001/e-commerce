@@ -1,7 +1,5 @@
-import { useRouteMatch } from "react-router-dom"
 
-import React from 'react'
-import useAuth from '../../customHooks/UseAuth'
+import useAuth from '../customHooks/UseAuth'
 import {withRouter} from 'react-router-dom'
 
 

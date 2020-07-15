@@ -6,7 +6,7 @@ function MainLayout(props) {
   return (
     <>
       <Header {...props}/>
-      {console.log(props)}
+
       <div className="main">
         {props.children}
     

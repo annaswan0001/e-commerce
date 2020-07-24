@@ -23,7 +23,9 @@ function Header({  ...rest }) {
       <div className="wrapper">
         <div className="logo">
           <Link to="/">
-            <img src={logo} alt="logo" />
+            {/* <img src={logo} alt="logo" /> */}
+            <h1>Sugar baby</h1>
+            <h4>Твой любимый магазин детской одежды</h4>
           </Link>
         </div>
 

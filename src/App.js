@@ -14,8 +14,12 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import WithAuth from "./hoc/WithAuth";
 import WithAdminAuth from "./hoc/WithAdminAuth";
 import { useDispatch } from "react-redux";
-import Admin from "./layouts/Admin/Admin";
+import Admin from "./views/Admin/Admin";
 import AdminToolbar from './components/AdminToolBar/AdminToolBar'
+import AdminLayout from "./layouts/AdminLayout";
+import DashBoardLayout from "./layouts/DashboardLayout";
+import BabyBoy from './views/BabyBoy/BabBoy'
+import BabyGirl from './views/BabyGirl/BabyGirl'
 
 const App = (props) => {
   const [app, setApp] = useState(false);
@@ -65,14 +69,30 @@ const App = (props) => {
                 </MainLayout>
               )}
             />
+          <Route
+              path="/shop-babygirl"
+              render={() => (
+                <MainLayout>
+                  <BabyGirl/>
+                </MainLayout>
+              )}
+            />
+                        <Route
+              path="/shop-babyboy"
+              render={() => (
+                <MainLayout>
+                 <BabyBoy/>
+                </MainLayout>
+              )}
+            />
 
             <Route
               path="/dashboard"
               render={() => (
                 <WithAuth>
-                  <MainLayout>
+                  <DashBoardLayout>
                     <Dashboard />
-                  </MainLayout>
+                  </DashBoardLayout>
                 </WithAuth>
               )}
             />
@@ -80,9 +100,9 @@ const App = (props) => {
               path="/admin"
               render={() => (
                 <WithAdminAuth>
-                  <MainLayout>
+                  <AdminLayout>
                     <Admin />
-                  </MainLayout>
+                  </AdminLayout>
                 </WithAdminAuth>
               )}
             />

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 function Dashboard(props) {
     return (
         <div>
-            hello dashboard
+             Welcome to your account
         </div>
     )
 }

@@ -44,7 +44,7 @@ const SignIn = (props) => {
     <AuthWrapper {...configAuthWrapper}>
       <div className="formWrapper">
         <form onSubmit={handleSubmit}>
-          <div className="row">
+          <div className="FormRow">
             <Input
               value={email}
               type="text"

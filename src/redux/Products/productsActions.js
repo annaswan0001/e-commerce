@@ -7,9 +7,9 @@ export const addProductsStart = (products)=>({
 })
 
 
-export const fetchProductsStart = (products)=>({
+export const fetchProductsStart = ()=>({
     type: productsTypes.FETCH_PRODUCTS_START,
-    payload:products
+    
 })
 
 
@@ -23,4 +23,17 @@ export const setProducts = (products)=>({
 export const deleteProductStart = (id)=>({
     type: productsTypes.DELETE_PRODUCT_START,
     payload:id
+})
+
+
+//1 product
+export const fetchProductStart = (id)=>({
+    type: productsTypes.FETCH_PRODUCT_START,
+    payload:id
+    
+})
+
+export const setProduct = (product)=>({
+    type: productsTypes.SET_PRODUCT,
+    payload:product
 })

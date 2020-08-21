@@ -17,7 +17,7 @@ const AdminToolbar = props => {
   return (
      <React.Fragment>
     {isAdmin && <div className="adminToolbar">
-        {console.log(isAdmin)}
+        {/* {console.log(isAdmin)} */}
       <ul>
         <li>
           <Link to="/admin">

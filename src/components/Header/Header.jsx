@@ -6,26 +6,26 @@ import { Link } from "react-router-dom";
 import { auth } from "../../firebase/utils";
 import { useSelector, useDispatch } from "react-redux";
 import { signOutStart } from "../../redux/User/userActions";
+import { getCartQuantity } from "../../redux/Cart/cartReducer";
 
-const mapState = (state) =>({
-  currentUser: state.user.currentUser
-})
+const mapState = (state) => ({
+  currentUser: state.user.currentUser,
+  productQuantity: getCartQuantity(state) || 0,
+});
 
+function Header({ ...rest }) {
+  const { currentUser, productQuantity } = useSelector(mapState);
+  const dispatch = useDispatch();
+  const signOut = () => dispatch(signOutStart());
 
-function Header({  ...rest }) {
-  const {currentUser} = useSelector(mapState)
-  const dispatch = useDispatch()
-  
-  const signOut = ()=>dispatch(signOutStart())
-  
   return (
     <header className="header">
       <div className="wrapper">
         <div className="logo">
           <Link to="/">
-            {/* <img src={logo} alt="logo" /> */}
-            <h1>Sugar baby</h1>
-            <h4>Твой любимый магазин детской одежды</h4>
+            {console.log(productQuantity)}
+            <h1>Anna Swan</h1>
+            <h2>Your favorite women's clothes</h2>
           </Link>
         </div>
 
@@ -33,11 +33,7 @@ function Header({  ...rest }) {
           {currentUser && (
             <ul>
               <li>
-                <span onClick={signOut}>
-                Logout
-                </span>
-                
-            
+                <span onClick={signOut}>Logout</span>
               </li>
               <li>
                 <Link to="/dashboard">My account</Link>
@@ -47,12 +43,18 @@ function Header({  ...rest }) {
 
           {!currentUser && (
             <ul>
-             
               <li>
                 <Link to="/registration">register</Link>
               </li>
               <li>
                 <Link to="/login">login</Link>
+              </li>
+              <li>
+                {" "}
+                <Link to="/shopping-cart">
+                  Корзина:{" "}
+                  <span className="shopping-cart">{productQuantity} шт. </span>
+                </Link>{" "}
               </li>
             </ul>
           )}
@@ -65,6 +67,5 @@ function Header({  ...rest }) {
 // Header.PropTypes = {
 
 // }
-
 
 export default Header;

@@ -15,12 +15,13 @@ import WithAuth from "./hoc/WithAuth";
 import WithAdminAuth from "./hoc/WithAdminAuth";
 import { useDispatch } from "react-redux";
 import Admin from "./views/Admin/Admin";
-import AdminToolbar from './components/AdminToolBar/AdminToolBar'
+import AdminToolbar from "./components/AdminToolBar/AdminToolBar";
 import AdminLayout from "./layouts/AdminLayout";
 import DashBoardLayout from "./layouts/DashboardLayout";
-import BabyBoy from './views/BabyBoy/BabBoy'
-import BabyGirl from './views/BabyGirl/BabyGirl'
-
+import BabyBoy from "./views/BabyBoy/BabBoy";
+import BabyGirl from "./views/BabyGirl/BabyGirl";
+import Cart from "./views/Cart/Cart";
+import Product from './views/Product/Product'
 const App = (props) => {
   const [app, setApp] = useState(false);
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const App = (props) => {
     <React.Fragment>
       {app && (
         <div className="app">
-           <AdminToolbar />
+          <AdminToolbar />
           <Switch>
             <Route
               exact
@@ -69,19 +70,35 @@ const App = (props) => {
                 </MainLayout>
               )}
             />
-          <Route
-              path="/shop-babygirl"
+            <Route
+              path="/product-babygirl"
               render={() => (
                 <MainLayout>
-                  <BabyGirl/>
+                  <BabyGirl />
                 </MainLayout>
               )}
             />
-                        <Route
+          <Route
+              path="/shopping-cart"
+              render={() => (
+                <MainLayout>
+                  <Cart/>
+                </MainLayout>
+              )}
+            />
+            <Route
+              path="/product/:id"
+              render={() => (
+                <HomeLayout>
+                  <Product />
+                </HomeLayout>
+              )}
+            />
+               <Route
               path="/shop-babyboy"
               render={() => (
                 <MainLayout>
-                 <BabyBoy/>
+                  <BabyBoy />
                 </MainLayout>
               )}
             />

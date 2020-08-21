@@ -1,6 +1,6 @@
 
 @import "bootstrap";
-
+@import "~react-image-gallery/styles/scss/image-gallery.scss";
 
 html,
 body, ul {
@@ -103,7 +103,7 @@ h1 {
   width: 100%;
   padding: 0;
   margin: 0 auto 2rem;
-  font-size: 3.0rem;
+  font-size: 3rem;
   line-height: 3.2rem;
   color: #000000;
   text-align: left;

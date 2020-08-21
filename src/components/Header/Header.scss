@@ -5,6 +5,12 @@
   h1 {
     font-weight: bold;
     margin: 0 auto 0rem;
+    text-transform: capitalize;
+    color: #546E7A;
+    
+  }
+  h2 {
+    font-size: 14px;
   }
   .wrapper {
     height: 100%;
@@ -25,10 +31,13 @@
       }
     }
     .callToActions {
+      display: flex;
+      justify-content: flex-end;
       flex-basis: 50%;
       text-align: end;
       padding-right: 10px;
       ul {
+        align-items: center;
         display: flex;
         justify-content: flex-end;
 
@@ -42,6 +51,11 @@
             list-style-type: none;
             text-decoration: none;
             text-transform: uppercase;
+          }
+          .shopping-cart{
+            border: 1px solid black;
+            padding: 2px 10px;
+            // border-radius: 50%;
           }
         }
       }

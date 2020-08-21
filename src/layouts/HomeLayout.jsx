@@ -3,17 +3,16 @@ import PropTypes from "prop-types";
 import { Switch } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Footer from '../components/Footer/Footer'
-function MainLayout(props) {
+function HomeLayout(props) {
   return (
     <>
       <Header {...props}/>
- 
       {props.children}
       <Footer/>
     </>
   );
 }
 
-MainLayout.propTypes = {};
+HomeLayout.propTypes = {};
 
-export default MainLayout;
+export default HomeLayout;

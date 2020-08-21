@@ -1,0 +1,76 @@
+.product {
+  margin-top: 20px;
+  h1 {
+    font-size: 2rem;
+  }
+  p {
+    font-size: 3rem;
+  }
+  .btn-size {
+    position: relative;
+    display: inline-block;
+    // padding: 5px 10px 4px 36px;
+    border: 1px solid #9ba5a7;
+    font-size: 14px;
+    margin-right: 10px;
+    min-width: 50px;
+    text-align: center;
+    margin-bottom: 14px;
+    cursor: pointer;
+    color: #444;
+    background: #fff;
+  }
+  .btn-add {
+    width: 280px;
+    height: 56px;
+    color: #fff;
+    text-align: center;
+    line-height: 56px;
+    font-size: 20px;
+    background: #f1435a;
+    border-radius: 5px;
+    margin-top: 60px;
+    &:hover {
+      background: green;
+    }
+  }
+  .price {
+    text-decoration: line-through;
+  }
+  .price-sale {
+    color: red;
+  }
+  .size {
+    font-size: 2rem;
+  }
+  .quantityIdentifier {
+    position: relative;
+    display: block;
+    width: 120px;
+    height: 36px;
+    border: 1px solid #ccc;
+    font-size: 0;
+    button {
+      display: inline-block;
+      height: 32px;
+      width: 31px;
+      line-height: 31px;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      background: #fff;
+    }
+    input{
+        display: inline-block;
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        width: 55px;
+        height: 34px;
+        text-align: center;
+        font-size: 16px;
+    }
+    input.form-control{
+        height: auto !important;
+    }
+  }
+}
